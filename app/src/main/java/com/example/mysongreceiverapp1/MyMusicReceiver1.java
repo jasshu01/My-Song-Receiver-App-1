@@ -24,6 +24,8 @@ public class MyMusicReceiver1 extends BroadcastReceiver {
 
         } else if (intent.getAction().equals("com.jasshugarg.imusic.currsong")) {
             String str = intent.getStringExtra("currPlayingSong");
+
+            if(MainActivity.musicText!=null)
             MainActivity.musicText.setText(str);
 
             SharedPreferences sharedPreferences = context.getSharedPreferences("musicReceiver1", context.MODE_PRIVATE);
