@@ -28,5 +28,11 @@ public class MainActivity extends AppCompatActivity {
         musicText.setText(
                 sharedPreferences.getString("currPlayingSong", "Didn't Received any message yet"));
 
+
+
+        MyMusicReceiver1 musicBroadCastReceiver1 = new MyMusicReceiver1();
+        IntentFilter intentFilter = new IntentFilter("com.jasshugarg.imusic.currsong");
+        registerReceiver(musicBroadCastReceiver1, intentFilter);
+
     }
 }

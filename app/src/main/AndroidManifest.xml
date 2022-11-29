@@ -4,6 +4,7 @@
 
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"></uses-permission>
 
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -13,12 +14,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MySongReceiverApp1"
+
+
         tools:targetApi="31">
         <service
             android:name=".MyMusicService1"
             android:enabled="true"
             android:exported="true">
-            <intent-filter>
+            <intent-filter android:priority="1000">
                 <action android:name="com.jasshugarg.imusic.currsong" />
             </intent-filter>
 
@@ -30,9 +33,9 @@
             android:exported="true">
             <intent-filter android:priority="1000">
                 <action android:name="com.jasshugarg.imusic.currsong" />
+            </intent-filter>
+            <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
-
-
             </intent-filter>
         </receiver>
 

@@ -3,7 +3,9 @@ package com.example.mysongreceiverapp1;
 import android.app.Service;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.os.IBinder;
+import android.util.Log;
 
 public class MyMusicService1 extends Service {
     public MyMusicService1() {
@@ -17,10 +19,18 @@ public class MyMusicService1 extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
 
+        String str = intent.getStringExtra("currPlayingSong");
+        if (MainActivity.musicText != null)
+            MainActivity.musicText.setText(str);
 
-        MyMusicReceiver1 musicBroadCastReceiver1 = new MyMusicReceiver1();
-        IntentFilter intentFilter = new IntentFilter("com.jasshugarg.imusic.currsong");
-        registerReceiver(musicBroadCastReceiver1, intentFilter);
+        SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("musicReceiver1", getApplicationContext().MODE_PRIVATE);
+        SharedPreferences.Editor ed = sharedPreferences.edit();
+        ed.putString("currPlayingSong", str);
+        ed.apply();
+
+        Log.d("MusicBroadcast", "Received  " + str);
+
+
         return super.onStartCommand(intent, flags, startId);
     }
 }

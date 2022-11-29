@@ -1,5 +1,6 @@
 package com.example.mysongreceiverapp1;
 
+import android.annotation.SuppressLint;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -9,6 +10,7 @@ import android.widget.TextView;
 
 public class MyMusicReceiver1 extends BroadcastReceiver {
 
+    @SuppressLint("SuspiciousIndentation")
     @Override
     public void onReceive(Context context, Intent intent) {
 
@@ -25,17 +27,15 @@ public class MyMusicReceiver1 extends BroadcastReceiver {
         } else if (intent.getAction().equals("com.jasshugarg.imusic.currsong")) {
             String str = intent.getStringExtra("currPlayingSong");
 
-            if(MainActivity.musicText!=null)
-            MainActivity.musicText.setText(str);
 
-            SharedPreferences sharedPreferences = context.getSharedPreferences("musicReceiver1", context.MODE_PRIVATE);
-            SharedPreferences.Editor ed = sharedPreferences.edit();
-            ed.putString("currPlayingSong", str);
-            ed.apply();
+            Intent serviceIntent=new Intent(context,MyMusicService1.class);
+            serviceIntent.putExtra("currPlayingSong",str);
+            context.startService(serviceIntent);
 
-            Log.d("MusicBroadcast", "Received  " + str);
 
             abortBroadcast();
+            Log.d("MusicBroadcast", "aborted by 1  " );
+
 
             return;
 
